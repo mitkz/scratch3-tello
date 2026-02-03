@@ -37,6 +37,7 @@ I am seeking sponsors on [Patreon](https://www.patreon.com/scratch3_tello) to co
 - Italian (Thank to [@Haldosax](https://github.com/Haldosax))
 - Latvian (Thank to [@berserks03](https://github.com/berserks03))
 - Українська (Thanks to [@MaxVolobuev](https://github.com/MaxVolobuev))
+- Português do Brasil (Thanks to [@matheusyanr](https://github.com/matheusyanr))
 
 Feel free to create a pull request for adding more languages!
 
