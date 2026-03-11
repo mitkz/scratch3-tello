@@ -3,7 +3,14 @@ const dgram = require('dgram');
 class TelloProcessor {
     initialize () {
         this.queue = []; // command queue
+        this.flying = false;
+        this.executing = false;
+        this.data = {};
+        this._reconnecting = false;
+        this._createSockets();
+    }
 
+    _createSockets () {
         this.client = dgram.createSocket('udp4');
         this.server = dgram.createSocket('udp4');
 
@@ -13,12 +20,11 @@ class TelloProcessor {
             exclusive: true
         });
 
-        this.flying = false;
         this.send('command');
 
         this.client.on('message', (message, remote) => {
             const readableMessage = message.toString();
-            
+
             // Previous command executed
             if (readableMessage === 'ok') {
                 this.executing = false;
@@ -56,7 +62,24 @@ class TelloProcessor {
 
         this.server.bind(8890, '0.0.0.0');
     }
-    
+
+    reconnect () {
+        if (this._reconnecting) return;
+        this._reconnecting = true;
+        this.resetQueue();
+        this.data = {};
+
+        let closedCount = 0;
+        const onClosed = () => {
+            closedCount++;
+            if (closedCount === 2) {
+                this._createSockets();
+                this._reconnecting = false;
+            }
+        };
+        try { this.client.close(onClosed); } catch (e) { onClosed(); }
+        try { this.server.close(onClosed); } catch (e) { onClosed(); }
+    }
 
     request (cmd) {
         // Enqueue
@@ -86,7 +109,11 @@ class TelloProcessor {
         this.executing = true;
         this.executingCommand = cmd;
         this.client.send(msg, 0, msg.length, 8889, '192.168.10.1', (err, bytes) => {
-            if (err) throw err;
+            if (err) {
+                console.error(`[Tello] Send error: ${err.message}`);
+                this.executing = false;
+                return;
+            }
         });
     }
 
