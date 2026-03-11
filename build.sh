@@ -6,18 +6,18 @@ git clone --filter=blob:none https://github.com/scratchfoundation/scratch-gui.gi
 git clone --filter=blob:none https://github.com/scratchfoundation/scratch-desktop.git -b v3.29.1
 
 cd scratch-vm
-npm install
+npm install --legacy-peer-deps
 npm link
 cd ..
 
 cd scratch-gui
-npm install
+npm install --legacy-peer-deps
 npm link scratch-vm
 npm link
 cd ..
 
 cd scratch-desktop
-npm install
+npm install --legacy-peer-deps
 cd node_modules
 rm -rf scratch-gui
 ln -s ../../scratch-gui scratch-gui
