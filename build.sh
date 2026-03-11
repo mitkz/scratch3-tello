@@ -12,7 +12,7 @@ cd ..
 
 cd scratch-gui
 npm install --legacy-peer-deps
-npm link scratch-vm
+npm link scratch-vm --legacy-peer-deps
 npm link
 cd ..
 
