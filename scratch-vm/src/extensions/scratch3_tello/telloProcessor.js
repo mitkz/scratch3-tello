@@ -101,8 +101,9 @@ class TelloProcessor {
 
     send (cmd) {
         const msg = Buffer.from(cmd);
-        // While grounding, `command`, `mon`, `mdirection 2` and `takeoff` are only executable
-        if (!this.flying && cmd !== 'command' && cmd !== 'mon' && cmd !== 'mdirection 2' && cmd !== 'takeoff') {
+        // While grounding, only setup commands are accepted. `land` is always allowed
+        // so it still works when internal flying state becomes out of sync.
+        if (!this.flying && cmd !== 'command' && cmd !== 'mon' && cmd !== 'mdirection 2' && cmd !== 'takeoff' && cmd !== 'land') {
             this.queue.shift();
             return;
         }
