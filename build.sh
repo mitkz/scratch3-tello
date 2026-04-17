@@ -47,6 +47,19 @@ npm_install() {
   (cd "$dir" && npm install --legacy-peer-deps)
 }
 
+copy_if_exists() {
+  local src="$1"
+  local dst="$2"
+  if [[ -e "$src" ]]; then
+    rm -rf "$dst"
+    mkdir -p "$(dirname -- "$dst")"
+    cp -r "$src" "$dst"
+  else
+    echo "ERROR: expected patch source not found: $src" >&2
+    exit 1
+  fi
+}
+
 # ---- run from script directory (実行場所ブレ対策) ----
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
@@ -71,19 +84,35 @@ npm_install "scratch-gui"
 
 npm_install "scratch-desktop"
 
-# ---- force scratch-desktop to use local scratch-gui ----
+# ---- apply scratch3-tello patch into top-level scratch-vm/scratch-gui ----
+PATCH_DIR="$(mktemp -d)"
+trap 'rm -rf "$PATCH_DIR"' EXIT
+
+git clone --depth 1 https://github.com/kebhr/scratch3-tello "$PATCH_DIR/scratch3-tello"
+
+copy_if_exists \
+  "$PATCH_DIR/scratch3-tello/scratch-vm/src/extensions/scratch3_tello" \
+  "scratch-vm/src/extensions/scratch3_tello"
+copy_if_exists \
+  "$PATCH_DIR/scratch3-tello/scratch-vm/src/extension-support/extension-manager.js" \
+  "scratch-vm/src/extension-support/extension-manager.js"
+
+copy_if_exists \
+  "$PATCH_DIR/scratch3-tello/scratch-gui/src/lib/libraries/extensions/tello" \
+  "scratch-gui/src/lib/libraries/extensions/tello"
+copy_if_exists \
+  "$PATCH_DIR/scratch3-tello/scratch-gui/src/lib/libraries/extensions/index.jsx" \
+  "scratch-gui/src/lib/libraries/extensions/index.jsx"
+
+# ---- force scratch-desktop to use local scratch-gui/scratch-vm ----
 mkdir -p scratch-desktop/node_modules
 (
   cd scratch-desktop/node_modules
   rm -rf scratch-gui
   ln -s ../../scratch-gui scratch-gui
+  rm -rf scratch-vm
+  ln -s ../../scratch-vm scratch-vm
 )
-
-# ---- apply scratch3-tello patch into scratch-desktop (明示的にコピー先指定) ----
-rm -rf scratch3-tello
-git clone --depth 1 https://github.com/kebhr/scratch3-tello
-cp -r scratch3-tello/. scratch-desktop/
-rm -rf scratch3-tello
 
 echo "Done. Next:"
 echo "  cd scratch-desktop && npm start"

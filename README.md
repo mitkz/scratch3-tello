@@ -53,7 +53,17 @@ $ ./build.sh
 ## How to run
 ```bash
 $ cd scratch-desktop
-$ npm start
+$ export NVM_DIR="$HOME/.nvm"
+$ . "$NVM_DIR/nvm.sh"
+$ nvm use 16
+$ NODE_ENV=production npm start
 ```
 
 If you fail to load Tello extension, please run `relink.sh`.
+
+## Copyright and License Notes
+
+This repository includes upstream Scratch code and downstream modifications.
+For a practical ownership boundary summary across stakeholders (upstream,
+fork author, and downstream maintainers), see [NOTICE](NOTICE).
+For Japanese readers, see [NOTICE.ja.md](NOTICE.ja.md).

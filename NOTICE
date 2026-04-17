@@ -1,0 +1,39 @@
+NOTICE
+
+This project contains code from multiple copyright holders.
+This file clarifies ownership boundaries for practical compliance.
+
+1. Upstream projects (Scratch Foundation / MIT and contributors)
+
+- Large parts of this repository are derived from upstream Scratch projects,
+  including but not limited to `scratch-vm` and `scratch-gui` base code.
+- Copyright for upstream-original code remains with upstream copyright holders.
+- Upstream license terms must be preserved for those portions.
+
+2. Fork author additions (kebhr and contributors to the fork)
+
+- Changes introduced in the fork (for example, Tello-related extension code,
+  integration glue, build/relink scripts, and fork-specific modifications)
+  are copyrighted by their respective authors.
+- Such ownership applies only to newly added or modified portions,
+  not to unchanged upstream code.
+
+3. Additional downstream modifications (mitkz and contributors)
+
+- New files and edits created in this downstream repository by mitkz and
+  contributors are copyrighted by their respective authors.
+- Such ownership applies only to the delta introduced by those maintainers.
+
+4. Scope rule (important)
+
+- No party should claim exclusive ownership over unchanged upstream code.
+- Ownership claims should be limited to each party's actual contributions.
+
+5. Where to express per-file ownership
+
+- Prefer preserving upstream LICENSE files for upstream-derived directories.
+- For new standalone files, add a short copyright header when appropriate.
+- For repository-level clarification, keep this NOTICE file updated.
+
+If you need legal certainty for redistribution in your jurisdiction,
+consult a qualified lawyer.
