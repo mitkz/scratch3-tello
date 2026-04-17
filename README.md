@@ -12,6 +12,13 @@
 ## Release
 You can download the binary from [here](https://github.com/kebhr/scratch3-tello/releases).  
 
+## Linux Fork
+This repository is a Linux-focused fork of scratch3-tello.
+
+- Primary target: Linux desktop development and runtime.
+- Build and run scripts are maintained for Linux environments.
+- Behavior on macOS and Windows may differ and is not the primary maintenance target of this fork.
+
 I am seeking sponsors on [Patreon](https://www.patreon.com/scratch3_tello) to continue the development of Scratch3-Tello.
 
 ### Instruction
