@@ -52,12 +52,12 @@ $ ./build.sh
 
 ## How to run
 ```bash
-$ cd scratch-desktop
-$ export NVM_DIR="$HOME/.nvm"
-$ . "$NVM_DIR/nvm.sh"
-$ nvm use 16
-$ NODE_ENV=production npm start
+$ cd scratch3-tello
+$ chmod +x run.sh
+$ ./run.sh
 ```
+
+`run.sh` internally loads `nvm`, switches to Node.js 16, and starts scratch-desktop with `NODE_ENV=production`.
 
 If you fail to load Tello extension, please run `relink.sh`.
 
