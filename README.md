@@ -12,6 +12,13 @@
 ## Release
 You can download the binary from [here](https://github.com/kebhr/scratch3-tello/releases).  
 
+## Linux Fork
+This repository is a Linux-focused fork of scratch3-tello.
+
+- Primary target: Linux desktop development and runtime.
+- Build and run scripts are maintained for Linux environments.
+- Behavior on macOS and Windows may differ and is not the primary maintenance target of this fork.
+
 I am seeking sponsors on [Patreon](https://www.patreon.com/scratch3_tello) to continue the development of Scratch3-Tello.
 
 ### Instruction
@@ -52,8 +59,18 @@ $ ./build.sh
 
 ## How to run
 ```bash
-$ cd scratch-desktop
-$ npm start
+$ cd scratch3-tello
+$ chmod +x run.sh
+$ ./run.sh
 ```
 
+`run.sh` internally loads `nvm`, switches to Node.js 16, and starts scratch-desktop with `NODE_ENV=production`.
+
 If you fail to load Tello extension, please run `relink.sh`.
+
+## Copyright and License Notes
+
+This repository includes upstream Scratch code and downstream modifications.
+For a practical ownership boundary summary across stakeholders (upstream,
+fork author, and downstream maintainers), see [NOTICE](NOTICE).
+For Japanese readers, see [NOTICE.ja.md](NOTICE.ja.md).
